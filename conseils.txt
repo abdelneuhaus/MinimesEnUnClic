@@ -1,6 +1,10 @@
-Créer un port : places, nombres d'abonnées, etc...
 Faire un schéma avec des box de chaque classe
-Idée intéressante:
-	Créer un port
-	Créer deux espaces de stockages: usager et bateau
-	Faire usager possède un pointeur de bateau
+
+
+A FAIRE:
+	- Faire 2 choses séparées : conteneur places limités et conteneur infini de saisie
+	- Créer un deuxième fichier différent du main où on stocke toutes les fonctions (main = boucle while)
+		-> Gérer notamment l'ajout d'un client, sa place et bien libéré la place quand il part (pas touche à la BDD)
+		-> Fonction (GestionProjet ou classe Usager) pour la facture
+		-> Afficher toutes les places dispos pour un type de bateau donné (et donc les places occupées aussi)
+	- Essayer de faire pointer bateau dans objet
