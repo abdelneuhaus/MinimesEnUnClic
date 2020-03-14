@@ -6,11 +6,6 @@ using namespace std;
 
 Voilier::Voilier(): m_longueur(0), m_cabine(0), m_utiliseService(0){}
 
-
-Voilier::Voilier(string nomVoilier, double longueur, bool cabine, bool utiliseService): 
-    m_nomVoilier(nomVoilier), m_longueur(longueur), m_cabine(cabine), m_utiliseService(utiliseService){}
-
-
 Voilier::~Voilier(){}
 
 Voilier::Voilier(const Voilier &VoilierCopie, string nomVoilier):

@@ -4,7 +4,6 @@ class Voilier{
 
     public:
         Voilier();
-        Voilier(std::string nomVoilier, double longueur, bool cabine, bool utiliseService);
         ~Voilier();
         Voilier(const Voilier &VoilierCopie, std::string nomVoilier);
         std::string getNomVoilier();
