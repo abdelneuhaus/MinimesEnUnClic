@@ -1,0 +1,6 @@
+Créer un port : places, nombres d'abonnées, etc...
+Faire un schéma avec des box de chaque classe
+Idée intéressante:
+	Créer un port
+	Créer deux espaces de stockages: usager et bateau
+	Faire usager possède un pointeur de bateau

@@ -1,0 +1,11 @@
+Prog: GestionPort.o Voilier.o Port.o Usager.o
+	g++ -o prog GestionPort.o Voilier.o Port.o Usager.o
+
+Voilier.o: Voilier.cpp Voilier.h
+	g++ -c Voilier.cpp
+
+Port.o: Port.cpp Port.h
+	g++ -c Port.cpp
+
+Usager.o: Usager.cpp Usager.h Voilier.h Port.h
+	g++ -c Usager.cpp
