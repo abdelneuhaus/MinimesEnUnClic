@@ -7,23 +7,10 @@
 #include "VoilierType2.h"
 using namespace std;
 
-static int numeroClient = 0;
+int GestionPort::numeroClient = 0;
 
 
-map<int, Usager> ajoutClient(map<int, Usager> Abonnes, Port port){
-    string nom;
-    string prenom;
-    bool formule;
-
-    Abonnes[numeroClient];
-    numeroClient++;
-    port.ajouteAbonne();
-    port.getNombrePlaces();
-    return Abonnes;
-}
-
-
-Voilier choixBateau(){
+Voilier GestionPort::choixBateau(){
     string nomVoilier;
     double longueur;
     cout << "Quel est le nom du voilier ?" << "\n";
@@ -46,7 +33,7 @@ Voilier choixBateau(){
 }
 
 
-map<int, Usager> ajouteClient(map<int, Usager> Abonnes, Port port){
+map<int, Usager> GestionPort::ajouteClient(map<int, Usager> Abonnes, Port port){
     Voilier voilier = choixBateau();
     string nom;
     string prenom;
@@ -60,6 +47,7 @@ map<int, Usager> ajouteClient(map<int, Usager> Abonnes, Port port){
     cout << "Saisie du prénom" << "\n";
     cin >> prenom;
     cout << "L'usager veut-il s'abonner (A) ou est t'il de passage (P) ?" << "\n";
+    cout << "Taper A ou P" << "\n";
     cin >> choixFormule;
     if (choixFormule == "A" || choixFormule == "a"){
         formule = true;
