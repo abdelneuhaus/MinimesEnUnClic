@@ -1,6 +1,3 @@
-Faire un schéma avec des box de chaque classe
-
-
 A FAIRE:
 	- Faire 2 choses séparées : conteneur places limités et conteneur infini de saisie
 	- Créer un deuxième fichier différent du main où on stocke toutes les fonctions (main = boucle while)
