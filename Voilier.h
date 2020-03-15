@@ -1,3 +1,6 @@
+#ifndef VOILIER_H
+#define VOILIER_H
+
 #include <string>
 
 class Voilier{
@@ -7,6 +10,7 @@ class Voilier{
         Voilier(std::string nomVoilier, double longueur, bool cabine, bool utiliseService);
         ~Voilier();
         Voilier(const Voilier &VoilierCopie, std::string nomVoilier);
+
         std::string getNomVoilier();
         double getLongueur();
         bool getCabine();
@@ -22,3 +26,5 @@ class Voilier{
         bool m_utiliseService;
         std::string m_typeVoilier;
 };
+
+#endif

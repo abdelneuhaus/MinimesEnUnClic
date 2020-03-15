@@ -5,10 +5,11 @@ using namespace std;
 
 GestionPort::GestionPort(){}
 
-
 Voilier GestionPort::choixBateau(){
     string nomVoilier;
     double longueur;
+    cout << "\n";
+    cout << "Saisie du voilier" << "\n";
     cout << "Quel est le nom du voilier ?" << "\n";
     cin >> nomVoilier;
     cout << "Quel est la longueur du voilier ?" << "\n";
@@ -19,12 +20,12 @@ Voilier GestionPort::choixBateau(){
         voilier.setTypeVoilier("NH");
         return voilier;
     }
-    else if (longueur < 10 or longueur > 25){
+    else if (longueur > 10 and longueur < 25){
         Voilier voilier(nomVoilier, longueur, true, true);
         voilier.setTypeVoilier("T1");
         return voilier;
     }
-    else if (longueur < 25){
+    else if (longueur > 25){
         Voilier voilier(nomVoilier, longueur, true, true);
         voilier.setTypeVoilier("T2");
         return voilier;
@@ -32,7 +33,7 @@ Voilier GestionPort::choixBateau(){
 }
 
 
-map<int, Usager> GestionPort::ajouteClient(map<int, Usager> Abonnes, Port port){
+vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes, Port port){
     Voilier voilier = choixBateau();
     string nom;
     string prenom;
@@ -49,6 +50,10 @@ map<int, Usager> GestionPort::ajouteClient(map<int, Usager> Abonnes, Port port){
     cout << "L'usager veut-il s'abonner (A) ou est t'il de passage (P) ?" << "\n";
     cout << "Taper A ou P" << "\n";
     cin >> choixFormule;
+    while(choixFormule != "A" && choixFormule != "a" && choixFormule != "P" && choixFormule != "p"){
+            cout << "Recommencer" << "\n";
+            cin >> choixFormule;
+    }
     if (choixFormule == "A" || choixFormule == "a"){
         formule = true;
     }
@@ -58,21 +63,28 @@ map<int, Usager> GestionPort::ajouteClient(map<int, Usager> Abonnes, Port port){
     cout << "\n";
 
     Usager client(nom, prenom, voilier, formule);
-    Abonnes[client.getNumeroClient()] = client;
-
-
-    // Attribution d'une place de bateau au client
-    // Places 1 à 30 = NH; 31 à 71 = T1; 72 à 98 = T2; 
-
+    Abonnes.push_back(client);
 
     return Abonnes;
 }
 
 
-void GestionPort::afficheInfos(map<int, Usager> Abonnes, int cle){
+vector<Voilier> GestionPort::enregistrePlace(vector<Voilier> Places, vector<Usager> Abonnes){
+    // Attribution d'une place de bateau au client
+    // Places 0 à 30 = NH; 31 à 71 = T1; 72 à 98 = T2; 99 et 100 = corps morts
+}
+
+
+void GestionPort::afficheInfos(vector<Usager> Abonnes){
+    cout << "Indiquer le numéro de dossier auquel accéder" << "\n";
+    int cle;
+    cin >> cle;
+    cout << "\n";
+    cout << "Numéro de dossier : " << cle << "\n";
     cout << "Nom : " << Abonnes[cle].getNom() << "\n";
     cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
-    cout << "Bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
-    cout << "Numéro de dossier : " << Abonnes[cle].getNumeroClient() << "\n";
+    cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
+    cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
+    cout << "Place occupé par le bateau : " << Abonnes[cle].getVoilier() << "\n";
     cout << "\n";
 }

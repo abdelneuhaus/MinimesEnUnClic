@@ -1,3 +1,6 @@
+#ifndef USAGER_H
+#define USAGER_H
+
 #include "Voilier.h"
 
 class Usager{
@@ -8,9 +11,9 @@ class Usager{
         ~Usager();
         std::string getNom() const;
         std::string getPrenom() const;
-        bool getFormule();
-        Voilier getVoilier();
-        int getNumeroClient();
+        bool getFormule() const;
+        Voilier getVoilier() const;
+        int getNumeroClient() const;
         
 
     private:
@@ -19,5 +22,6 @@ class Usager{
         bool m_formule;
         Voilier m_voilier;  
         int m_numeroClient;  
-        int static dossier;
 };
+
+#endif

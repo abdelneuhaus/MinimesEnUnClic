@@ -1,3 +1,6 @@
+#ifndef GESTIONPORT_H
+#define GESTIONPORT_H
+
 #include "Usager.h"
 #include "Port.h"
 #include <map>
@@ -7,7 +10,10 @@ class GestionPort{
 
     public:
         GestionPort();
-        std::map<int, Usager> ajouteClient(std::map<int, Usager> Abonnes, Port port);
+        std::vector<Usager> enregistreClient(std::vector<Usager> Abonnes, Port port);
+        std::vector<Voilier> enregistrePlace(std::vector<Voilier> places, std::vector<Usager> Abonnes);
         Voilier choixBateau();
-        void afficheInfos(std::map<int, Usager> Abonnes, int cle);
+        void afficheInfos(std::vector<Usager> Abonnes);
 };
+
+#endif

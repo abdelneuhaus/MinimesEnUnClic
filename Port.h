@@ -1,3 +1,6 @@
+#ifndef PORT_H
+#define PORT_H
+
 #include <string>
 
 class Port{
@@ -16,3 +19,5 @@ class Port{
         int m_nombreAbonnes;
         static int numeroClient;
 };
+
+#endif
