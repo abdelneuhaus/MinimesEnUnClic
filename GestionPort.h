@@ -1,15 +1,13 @@
 #include "Usager.h"
-#include "VoilierNonHabitable.h"
-#include "VoilierType1.h"
-#include "VoilierType2.h"
+#include "Port.h"
 #include <map>
+#include <vector>
 
 class GestionPort{
 
     public:
+        GestionPort();
         std::map<int, Usager> ajouteClient(std::map<int, Usager> Abonnes, Port port);
         Voilier choixBateau();
-
-    private:
-        static int numeroClient;
+        void afficheInfos(std::map<int, Usager> Abonnes, int cle);
 };

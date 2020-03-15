@@ -1,6 +1,4 @@
-#include <string>
 #include "Voilier.h"
-#include "Port.h"
 
 class Usager{
 
@@ -12,12 +10,14 @@ class Usager{
         std::string getPrenom() const;
         bool getFormule();
         Voilier getVoilier();
-        void quittePort(Port port);
+        int getNumeroClient();
         
 
     private:
         std::string m_nom;
         std::string m_prenom;
         bool m_formule;
-        Voilier m_voilier;    
+        Voilier m_voilier;  
+        int m_numeroClient;  
+        int static dossier;
 };

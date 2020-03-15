@@ -1,21 +1,22 @@
 #include <iostream>
 #include <string>
 #include <map>
-#include "Usager.h"
-#include "GestionPort.cpp"
+#include "GestionPort.h"
 using namespace std;
-
 
 int main(){
 
     map<int, Usager> Abonnes;
-    Port LaRochelle("La Rochelle", 0, 10);
+    vector<Voilier> Places;
+    Places.reserve(101);
+    GestionPort GestionLaRochelle;
+    Port LaRochelle("La Rochelle", 0, 101);
 
-    Abonnes = ajoutClient(Abonnes, LaRochelle);
-    cout << LaRochelle.getNombrePlaces() << "\n";
-    Abonnes = ajoutClient(Abonnes, LaRochelle);
-    cout << LaRochelle.getNombrePlaces() << "\n";
-    Abonnes.erase(0);
+    Abonnes = GestionLaRochelle.ajouteClient(Abonnes, LaRochelle);
+    Abonnes = GestionLaRochelle.ajouteClient(Abonnes, LaRochelle);
+    Abonnes = GestionLaRochelle.ajouteClient(Abonnes, LaRochelle);
+
+    GestionLaRochelle.afficheInfos(Abonnes, 1);
 
     return 0;
 }

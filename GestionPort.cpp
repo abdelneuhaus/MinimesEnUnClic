@@ -1,13 +1,9 @@
 #include <iostream>
-#include <string>
-#include <map>
-#include "Usager.h"
-#include "VoilierNonHabitable.h"
-#include "VoilierType1.h"
-#include "VoilierType2.h"
+#include "GestionPort.h"
 using namespace std;
 
-int GestionPort::numeroClient = 0;
+
+GestionPort::GestionPort(){}
 
 
 Voilier GestionPort::choixBateau(){
@@ -19,15 +15,18 @@ Voilier GestionPort::choixBateau(){
     cin >> longueur;
 
     if (longueur < 10){
-        VoilierNonHabitable voilier(nomVoilier, longueur);
+        Voilier voilier(nomVoilier, longueur, false, false);
+        voilier.setTypeVoilier("NH");
         return voilier;
     }
     else if (longueur < 10 or longueur > 25){
-        VoilierType1 voilier(nomVoilier, longueur);
+        Voilier voilier(nomVoilier, longueur, true, true);
+        voilier.setTypeVoilier("T1");
         return voilier;
     }
     else if (longueur < 25){
-        VoilierType2 voilier(nomVoilier, longueur);
+        Voilier voilier(nomVoilier, longueur, true, true);
+        voilier.setTypeVoilier("T2");
         return voilier;
     }
 }
@@ -40,8 +39,9 @@ map<int, Usager> GestionPort::ajouteClient(map<int, Usager> Abonnes, Port port){
     string choixFormule;
     bool formule;
 
-    cout << "Création du client" << "\n";
+    // Création du client dans la database
     cout << "\n";
+    cout << "Création du client" << "\n";
     cout << "Saisie du nom de famille" << "\n";
     cin >> nom;
     cout << "Saisie du prénom" << "\n";
@@ -55,12 +55,24 @@ map<int, Usager> GestionPort::ajouteClient(map<int, Usager> Abonnes, Port port){
     else if (choixFormule == "P" || choixFormule == "p"){
         formule = false;
     }
+    cout << "\n";
 
-    Usager usager(nom, prenom, voilier, formule);
+    Usager client(nom, prenom, voilier, formule);
+    Abonnes[client.getNumeroClient()] = client;
 
-    Abonnes[numeroClient] = usager;
-    numeroClient++;
-    port.ajouteAbonne();
-    port.getNombrePlaces();
+
+    // Attribution d'une place de bateau au client
+    // Places 1 à 30 = NH; 31 à 71 = T1; 72 à 98 = T2; 
+
+
     return Abonnes;
+}
+
+
+void GestionPort::afficheInfos(map<int, Usager> Abonnes, int cle){
+    cout << "Nom : " << Abonnes[cle].getNom() << "\n";
+    cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
+    cout << "Bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
+    cout << "Numéro de dossier : " << Abonnes[cle].getNumeroClient() << "\n";
+    cout << "\n";
 }
