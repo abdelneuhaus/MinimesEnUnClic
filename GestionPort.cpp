@@ -72,6 +72,7 @@ vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes, Port port){
 vector<Voilier> GestionPort::enregistrePlace(vector<Voilier> Places, vector<Usager> Abonnes){
     // Attribution d'une place de bateau au client
     // Places 0 à 30 = NH; 31 à 71 = T1; 72 à 98 = T2; 99 et 100 = corps morts
+    
 }
 
 
@@ -85,6 +86,6 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes){
     cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
     cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
     cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
-    cout << "Place occupé par le bateau : " << Abonnes[cle].getVoilier() << "\n";
+    //cout << "Place occupé par le bateau : " << Abonnes[cle].getVoilier() << "\n";
     cout << "\n";
 }
