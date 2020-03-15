@@ -2,57 +2,77 @@
 #include <string>
 #include <map>
 #include "Usager.h"
+#include "VoilierNonHabitable.h"
+#include "VoilierType1.h"
+#include "VoilierType2.h"
 using namespace std;
 
 static int numeroClient = 0;
+
 
 map<int, Usager> ajoutClient(map<int, Usager> Abonnes, Port port){
     string nom;
     string prenom;
     bool formule;
-    string nomVoilier;
-    double longueur;
-    bool cabine, utiliseService;
 
-    cout << "Saisir le nom du voilier de l'abonné" << "\n";
-    cin >> nomVoilier;
-    cout << "Saisir la longueur" << "\n";
-    cin >> longueur;
-    cout << "Saisir la présence (0) ou absence de cabine (1)" << "\n";
-    cin >> cabine;
-    cout << "Idem" << "\n";
-    cin >> utiliseService;
-
-    cout << "Maintenant, saisir le nom de l'abonné" << "\n";
-    cin >> nom;
-    cout << "Saisir la prénom" << "\n";
-    cin >> prenom;
-    cout << "Abonné (0) ou de passage (1)" << "\n";
-    cin >> formule;
-
-    Voilier voilier(nomVoilier, longueur, cabine, utiliseService);
-    Usager client(nom, prenom, voilier, formule);
-
-    Abonnes[numeroClient] = client;
+    Abonnes[numeroClient];
     numeroClient++;
     port.ajouteAbonne();
     port.getNombrePlaces();
-
     return Abonnes;
 }
 
 
+Voilier choixBateau(){
+    string nomVoilier;
+    double longueur;
+    cout << "Quel est le nom du voilier ?" << "\n";
+    cin >> nomVoilier;
+    cout << "Quel est la longueur du voilier ?" << "\n";
+    cin >> longueur;
 
-int main(){
+    if (longueur < 10){
+        VoilierNonHabitable voilier(nomVoilier, longueur);
+        return voilier;
+    }
+    else if (longueur < 10 or longueur > 25){
+        VoilierType1 voilier(nomVoilier, longueur);
+        return voilier;
+    }
+    else if (longueur < 25){
+        VoilierType2 voilier(nomVoilier, longueur);
+        return voilier;
+    }
+}
 
-    map<int, Usager> Abonnes;
-    Port LaRochelle("La Rochelle", 0, 10);
 
-    Abonnes = ajoutClient(Abonnes, LaRochelle);
-    cout << LaRochelle.getNombrePlaces() << "\n";
-    Abonnes = ajoutClient(Abonnes, LaRochelle);
-    cout << LaRochelle.getNombrePlaces() << "\n";
-    Abonnes.erase(0);
+map<int, Usager> ajouteClient(map<int, Usager> Abonnes, Port port){
+    Voilier voilier = choixBateau();
+    string nom;
+    string prenom;
+    string choixFormule;
+    bool formule;
 
-    return 0;
+    cout << "Création du client" << "\n";
+    cout << "\n";
+    cout << "Saisie du nom de famille" << "\n";
+    cin >> nom;
+    cout << "Saisie du prénom" << "\n";
+    cin >> prenom;
+    cout << "L'usager veut-il s'abonner (A) ou est t'il de passage (P) ?" << "\n";
+    cin >> choixFormule;
+    if (choixFormule == "A" || choixFormule == "a"){
+        formule = true;
+    }
+    else if (choixFormule == "P" || choixFormule == "p"){
+        formule = false;
+    }
+
+    Usager usager(nom, prenom, voilier, formule);
+
+    Abonnes[numeroClient] = usager;
+    numeroClient++;
+    port.ajouteAbonne();
+    port.getNombrePlaces();
+    return Abonnes;
 }
