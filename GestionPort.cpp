@@ -2,55 +2,86 @@
 #include "GestionPort.h"
 using namespace std;
 
+vector<int> GestionPort::PlacesNHT1;
+vector<int> GestionPort::PlacesT2;
+vector<int> GestionPort::CorpsMort;
 
-GestionPort::GestionPort(){}
 
-vector<int> GestionPort::getPlacesVides(vector<Usager> Abonnes, int debut, int fin){
-    vector<int> tmp(40);
-    for (int i = debut; i < fin; i++){
-        for (int y = 0; i < Abonnes.size(); i++){
-            if (Abonnes[y].getVoilier().getPlace() != i){
-                tmp.push_back(i);
-            }
-        }
+GestionPort::GestionPort(){
+    
+    for(int i = 0; i < 61; i++){
+        PlacesNHT1.push_back(i);
+    }
+
+    for(int i = 61; i < 91; i++){
+        PlacesT2.push_back(i);
+    }
+
+    for (int i = 91; i < 101; i++){
+        CorpsMort.push_back(i);
     }
 }
+
 
 Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
     string nomVoilier;
     double longueur;
+    string typePlace;
     cout << "\n";
     cout << "Saisie du voilier" << "\n";
     cout << "Quel est le nom du voilier ?" << "\n";
     cin >> nomVoilier;
     cout << "Quel est la longueur du voilier ?" << "\n";
     cin >> longueur;
-
+    cout << "Voulez-vous une place normale ou pas ?" << "\n";
+    cin >> typePlace;
+    
     // Check les places disponible à donner au bateau
-    vector<int> listeNH(40);
-    listeNH = getPlacesVides(Abonnes, 0, 31); 
-    vector<int> listeT1(40);
-    listeT1 = getPlacesVides(Abonnes, 31, 71); 
-    vector<int> listeT2(40);
-    listeT2 = getPlacesVides(Abonnes, 71, 99); 
-
-    if (longueur < 10){
-        Voilier voilier(nomVoilier, longueur, false, false);
-        voilier.setTypeVoilier("NH");
-        voilier.setPlace(listeNH[0]);
-        return voilier;
+    if (typePlace == "oui" || typePlace == "OUI" || typePlace == "Oui"){
+        if (longueur < 10){
+            Voilier voilier(nomVoilier, longueur, false, false);
+            voilier.setTypeVoilier("NH");
+            voilier.setPlace(PlacesNHT1[0]);
+            PlacesNHT1.erase(PlacesNHT1.begin());
+            return voilier;
+        }
+        else if (longueur > 10 and longueur < 25){
+            Voilier voilier(nomVoilier, longueur, true, true);
+            voilier.setTypeVoilier("T1");
+            voilier.setPlace(PlacesNHT1[0]);
+            PlacesNHT1.erase(PlacesNHT1.begin());
+            return voilier;
+        }
+        else if (longueur > 25){
+            Voilier voilier(nomVoilier, longueur, true, true);
+            voilier.setTypeVoilier("T2");
+            voilier.setPlace(PlacesT2[0]);
+            PlacesT2.erase(PlacesT2.begin());
+            return voilier;
+        }
     }
-    else if (longueur > 10 and longueur < 25){
-        Voilier voilier(nomVoilier, longueur, true, true);
-        voilier.setTypeVoilier("T1");
-        voilier.setPlace(listeT1[0]);
-        return voilier;
-    }
-    else if (longueur > 25){
-        Voilier voilier(nomVoilier, longueur, true, true);
-        voilier.setTypeVoilier("T2");
-        voilier.setPlace(listeT2[0]);
-        return voilier;
+    else{
+        if (longueur < 10){
+            Voilier voilier(nomVoilier, longueur, false, false);
+            voilier.setTypeVoilier("NH");
+            voilier.setPlace(CorpsMort[0]);
+            CorpsMort.erase(CorpsMort.begin());
+            return voilier;
+        }
+        else if (longueur > 10 and longueur < 25){
+            Voilier voilier(nomVoilier, longueur, true, true);
+            voilier.setTypeVoilier("T1");
+            voilier.setPlace(CorpsMort[0]);
+            CorpsMort.erase(CorpsMort.begin());
+            return voilier;
+        }
+        else if (longueur > 25){
+            Voilier voilier(nomVoilier, longueur, true, true);
+            voilier.setTypeVoilier("T2");
+            voilier.setPlace(CorpsMort[0]);
+            CorpsMort.erase(CorpsMort.begin());
+            return voilier;
+        }
     }
 }
 

@@ -3,7 +3,6 @@
 
 #include "Usager.h"
 #include "Port.h"
-#include <map>
 #include <vector>
 
 class GestionPort{
@@ -14,8 +13,11 @@ class GestionPort{
         //std::vector<int> enregistrePlace(std::vector<int> places, std::vector<Usager> Abonnes);
         Voilier choixBateau(std::vector<Usager> Abonnes);
         void afficheInfos(std::vector<Usager> Abonnes);
-        std::vector<int> getPlacesVides(std::vector<Usager> Abonnes, int debut, int fin);
 
+    private:
+        static std::vector<int> PlacesNHT1;
+        static std::vector<int> PlacesT2;
+        static std::vector<int> CorpsMort;
 };
 
 #endif
