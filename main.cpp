@@ -3,6 +3,7 @@
 #include "GestionPort.h"
 using namespace std;
 
+
 void afficheMenu(){
     cout << "Menu" << "\n" << "\n";
     cout << "0: Quitter" << "\n";
