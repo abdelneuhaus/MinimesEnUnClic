@@ -18,6 +18,9 @@ class Voilier{
         std::string getTypeVoilier();
         void setTypeVoilier(std::string type);
 
+        int getPlace();
+        void setPlace(int nbr);
+
 
     private:
         std::string m_nomVoilier;
@@ -25,6 +28,7 @@ class Voilier{
         bool m_cabine;
         bool m_utiliseService;
         std::string m_typeVoilier;
+        int m_place;
 };
 
 #endif

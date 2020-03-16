@@ -3,10 +3,13 @@
 using namespace std;
 
 
-Voilier::Voilier(): m_nomVoilier("Voilier"), m_longueur(0), m_cabine(0), m_utiliseService(0){}
+Voilier::Voilier(): m_nomVoilier("Voilier"), m_longueur(0), m_cabine(0), m_utiliseService(0){
+    m_place = 0;
+}
 
 Voilier::Voilier(string nomVoilier, double longueur, bool cabine, bool utiliseService): 
     m_nomVoilier(nomVoilier), m_longueur(longueur), m_cabine(cabine), m_utiliseService(utiliseService){
+        m_place = 0;
     }
 
 Voilier::~Voilier(){}
@@ -38,4 +41,14 @@ string Voilier::getTypeVoilier(){
 
 void Voilier::setTypeVoilier(string type){
     m_typeVoilier = type;
+}
+
+
+
+int Voilier::getPlace(){
+    return m_place;
+}
+
+void Voilier::setPlace(int nbr){
+    m_place = nbr;
 }

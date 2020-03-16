@@ -12,7 +12,7 @@ void afficheMenu(){
 
 int main(){
     vector<Usager> Abonnes;
-    vector<Voilier> Places(100);
+    vector<int> Places(100, 3);
     GestionPort GestionLaRochelle;
     Port LaRochelle("La Rochelle", 0, 101);
     

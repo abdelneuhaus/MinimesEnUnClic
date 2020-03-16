@@ -27,7 +27,3 @@ bool Usager::getFormule() const{
 Voilier Usager::getVoilier() const{
     return m_voilier;
 }
-
-int Usager::getNumeroClient() const{
-    return m_numeroClient;
-}

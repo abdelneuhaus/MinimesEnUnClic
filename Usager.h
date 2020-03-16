@@ -12,16 +12,13 @@ class Usager{
         std::string getNom() const;
         std::string getPrenom() const;
         bool getFormule() const;
-        Voilier getVoilier() const;
-        int getNumeroClient() const;
-        
+        Voilier getVoilier() const;        
 
     private:
         std::string m_nom;
         std::string m_prenom;
         bool m_formule;
         Voilier m_voilier;  
-        int m_numeroClient;  
 };
 
 #endif
