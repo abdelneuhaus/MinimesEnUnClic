@@ -2,17 +2,21 @@
 #include "GestionPort.h"
 using namespace std;
 
-vector<int> GestionPort::PlacesNHT1;
+vector<int> GestionPort::PlacesNH;
+vector<int> GestionPort::PlacesT1;
 vector<int> GestionPort::PlacesT2;
 vector<int> GestionPort::CorpsMort;
 
 
 GestionPort::GestionPort(){
     
-    for(int i = 0; i < 61; i++){
-        PlacesNHT1.push_back(i);
+    for(int i = 0; i < 31; i++){
+        PlacesNH.push_back(i);
     }
 
+    for(int i = 31; i < 61; i++){
+        PlacesT1.push_back(i);
+    }
     for(int i = 61; i < 91; i++){
         PlacesT2.push_back(i);
     }
@@ -41,15 +45,15 @@ Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
         if (longueur < 10){
             Voilier voilier(nomVoilier, longueur, false, false);
             voilier.setTypeVoilier("NH");
-            voilier.setPlace(PlacesNHT1[0]);
-            PlacesNHT1.erase(PlacesNHT1.begin());
+            voilier.setPlace(PlacesNH[0]);
+            PlacesNH.erase(PlacesNH.begin());
             return voilier;
         }
         else if (longueur > 10 and longueur < 25){
             Voilier voilier(nomVoilier, longueur, true, true);
             voilier.setTypeVoilier("T1");
-            voilier.setPlace(PlacesNHT1[0]);
-            PlacesNHT1.erase(PlacesNHT1.begin());
+            voilier.setPlace(PlacesT1[0]);
+            PlacesT1.erase(PlacesT1.begin());
             return voilier;
         }
         else if (longueur > 25){
@@ -86,7 +90,7 @@ Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
 }
 
 
-vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes, Port port){
+vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes){
     Voilier voilier = choixBateau(Abonnes);
     string nom;
     string prenom;
@@ -134,3 +138,80 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes){
     cout << "Place occupée par le bateau : " << Abonnes[cle].getVoilier().getPlace() << "\n";
     cout << "\n";
 }
+
+
+
+vector<Usager> GestionPort::saisieFacture(vector<Usager> Clients){
+    int numeroDossier;
+    int duree;
+
+    cout << "\n";
+    cout << "Entrer le numéro de dossier auquel vous voulez accéder" << "\n";
+    cout << "Pour rappel, il y'a actuellement " << Clients.size() - 1 << "\n";
+    cin >> numeroDossier;
+    while(numeroDossier > Clients.size() - 1){
+        cout << "Ce client n'existe pas" << "\n";
+        cin >> numeroDossier;
+    }
+    if (Clients[numeroDossier].getVoilier().getPlace() == -1){
+        cout << "Ce client a quitté le port" << "\n";
+        cout << "Voici la somme qu'il a payé : " << Clients[numeroDossier].getFacture() << "\n";
+    }
+    else{ 
+        if (Clients[numeroDossier].getFormule() == true){
+            cout << Clients[numeroDossier].getNom() << " " << Clients[numeroDossier].getPrenom() << " est un abonné" << "\n";
+            cout << "Combien de mois durera l'abonnement ?" << "\n";
+            cin >> duree;
+            if(duree%12 == 0){
+                if (Clients[numeroDossier].getVoilier().getTypeVoilier() == "NH"){
+                    Clients[numeroDossier].setFacture(41.67*duree);
+                }
+                else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T1"){
+                    Clients[numeroDossier].setFacture(41.67*1.3*duree);
+                }
+                else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T2"){
+                    Clients[numeroDossier].setFacture(41.67*1.6*duree);
+                }
+            }
+            else{
+                if (Clients[numeroDossier].getVoilier().getTypeVoilier() == "NH"){
+                    Clients[numeroDossier].setFacture(500*duree);
+                }
+                else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T1"){
+                    Clients[numeroDossier].setFacture(500*1.3*duree);
+                }
+                else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T2"){
+                    Clients[numeroDossier].setFacture(500*1.6*duree);
+                }
+            }
+        }
+        else if (Clients[numeroDossier].getFormule() == false && Clients[numeroDossier].getVoilier().getPlace() < 91){
+            cout << Clients[numeroDossier].getNom() << " " << Clients[numeroDossier].getPrenom() << " est un client de passage" << "\n";
+            cout << "Combien de jours ?" << "\n";
+            cin >> duree;
+            if (Clients[numeroDossier].getVoilier().getTypeVoilier() == "NH"){
+                Clients[numeroDossier].setFacture(20*duree);
+            }
+            else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T1"){
+                Clients[numeroDossier].setFacture(20*1.3*duree);
+            }
+            else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T2"){
+                Clients[numeroDossier].setFacture(20*1.6*duree);
+            }
+        }
+        else if (Clients[numeroDossier].getFormule() == false && Clients[numeroDossier].getVoilier().getPlace() < 91){
+            cout << Clients[numeroDossier].getNom() << " " << Clients[numeroDossier].getPrenom() << " est un client de passage qui utilise un corps mort" << "\n";
+            cout << "Combien de jours ?" << "\n";
+            cin >> duree;
+            if (Clients[numeroDossier].getVoilier().getTypeVoilier() == "NH"){
+                Clients[numeroDossier].setFacture(20*duree*0.5);
+            }
+            else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T1"){
+                Clients[numeroDossier].setFacture(20*1.3*duree*0.5);
+            }
+            else if(Clients[numeroDossier].getVoilier().getTypeVoilier() == "T2"){
+                Clients[numeroDossier].setFacture(20*1.6*duree*0.5);
+            }
+        }
+    }
+} 
