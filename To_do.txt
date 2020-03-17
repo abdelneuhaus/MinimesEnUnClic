@@ -1,0 +1,7 @@
+A FAIRE:
+
+	- Supprimer un voilier d'une place
+
+	- Afficher toutes les places dispos pour un type de bateau donné (et donc les places occupées aussi)
+
+	- Fonction (GestionProjet ou classe Usager) pour la facture
