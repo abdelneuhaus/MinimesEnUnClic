@@ -283,8 +283,9 @@ void GestionPort::afficherPlaces(){
     cout << "1: Bateau non habitable" << "\n";
     cout << "2: Bateau de type 1" << "\n";
     cout << "3: Bateau de type 2" << "\n";
+    cout << "4: Places sur corps mort" << "\n";
     cin >> choix;
-    while(choix != 1 && choix != 2 && choix != 3){
+    while(choix != 1 && choix != 2 && choix != 3 && choix != 4){
         cout << "Erreur. Recommencer" << "\n";
         cin >> choix;
     }
@@ -304,6 +305,12 @@ void GestionPort::afficherPlaces(){
         cout << "Liste des places pour bateaux de type 2 disponibles :" << "\n";
         for(int i = 0; i < PlacesT2.size(); i++){
             cout << PlacesT2[i] << "\n";
+        }    
+    }
+    else if (choix == 4){
+        cout << "Liste des places pour bateaux de type 2 disponibles :" << "\n";
+        for(int i = 0; i < CorpsMort.size(); i++){
+            cout << CorpsMort[i] << "\n";
         }    
     }
 }
