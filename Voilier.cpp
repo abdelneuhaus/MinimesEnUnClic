@@ -43,8 +43,6 @@ void Voilier::setTypeVoilier(string type){
     m_typeVoilier = type;
 }
 
-
-
 int Voilier::getPlace(){
     return m_place;
 }
