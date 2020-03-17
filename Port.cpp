@@ -5,9 +5,7 @@ using namespace std;
 
 int Port::numeroClient = 0;
 
-Port::Port(string nomPort, int nombreAbonnes, int places):
-    m_nomPort(nomPort), m_nombreAbonnes(nombreAbonnes), m_places(places){}
-
+Port::Port(string nomPort, int nombreAbonnes, int places): m_nomPort(nomPort), m_nombreAbonnes(nombreAbonnes), m_places(places){}
 
 int Port::getNombreAbonnes(){
     return m_nombreAbonnes;
