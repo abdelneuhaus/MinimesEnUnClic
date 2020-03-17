@@ -11,11 +11,11 @@ class Voilier{
         ~Voilier();
         Voilier(const Voilier &VoilierCopie, std::string nomVoilier);
 
-        std::string getNomVoilier();
-        double getLongueur();
-        bool getCabine();
-        bool getUtiliseService();
-        std::string getTypeVoilier();
+        std::string getNomVoilier() const;
+        double getLongueur() const;
+        bool getCabine() const;
+        bool getUtiliseService() const;
+        std::string getTypeVoilier() const;
         void setTypeVoilier(std::string type);
 
         int getPlace();

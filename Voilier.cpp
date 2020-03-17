@@ -4,12 +4,12 @@ using namespace std;
 
 
 Voilier::Voilier(): m_nomVoilier("Voilier"), m_longueur(0), m_cabine(0), m_utiliseService(0){
-    m_place = 0;
+    m_place = - 1;
 }
 
 Voilier::Voilier(string nomVoilier, double longueur, bool cabine, bool utiliseService): 
     m_nomVoilier(nomVoilier), m_longueur(longueur), m_cabine(cabine), m_utiliseService(utiliseService){
-        m_place = 0;
+        m_place = - 1;
     }
 
 Voilier::~Voilier(){}
@@ -19,23 +19,23 @@ Voilier::Voilier(const Voilier &VoilierCopie, string nomVoilier):
 
 
 
-double Voilier::getLongueur(){
+double Voilier::getLongueur() const{
     return m_longueur;
 }
 
-bool Voilier::getCabine(){
+bool Voilier::getCabine() const{
     return m_cabine;
 }
 
-bool Voilier::getUtiliseService(){
+bool Voilier::getUtiliseService() const{
     return m_utiliseService;
 }
 
-string Voilier::getNomVoilier(){
+string Voilier::getNomVoilier() const{
     return m_nomVoilier;
 }
 
-string Voilier::getTypeVoilier(){
+string Voilier::getTypeVoilier() const{
     return m_typeVoilier;
 }
 

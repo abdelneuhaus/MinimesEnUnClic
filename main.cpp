@@ -7,15 +7,14 @@ using namespace std;
 void afficheMenu(){
     cout << "Menu" << "\n" << "\n";
     cout << "0: Quitter" << "\n";
-    cout << "1: Saisie d'un client" << "\n";
+    cout << "1: Saisie d'un client et de sa facture" << "\n";
     cout << "2: Afficher les informations d'un client" << "\n";
 }
 
 int main(){
-    vector<Usager> Abonnes;
+    vector<Usager> Clients;
     vector<int> Places(100, 3);
     GestionPort GestionLaRochelle;
-    Port LaRochelle("La Rochelle", 0, 101);
     
     while(true){
         afficheMenu();
@@ -25,13 +24,12 @@ int main(){
             return(0);
         }
         else if(choix == 1){
-            Abonnes = GestionLaRochelle.enregistreClient(Abonnes, LaRochelle);
-            //Places = GestionLaRochelle.enregistrePlace(Places, Abonnes);
+            Clients = GestionLaRochelle.enregistreClient(Clients);
+            Clients = GestionLaRochelle.saisieFacture(Clients);
         }
         else if(choix == 2){
-            GestionLaRochelle.afficheInfos(Abonnes);
+            GestionLaRochelle.afficheInfos(Clients);
         }
     }
-
     return 0;
 }
