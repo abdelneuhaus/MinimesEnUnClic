@@ -12,10 +12,9 @@ class GestionPort{
         std::vector<Usager> enregistreClient(std::vector<Usager> Clients);
         Voilier choixBateau(std::vector<Usager> Clients);
         void afficheInfos(std::vector<Usager> Clients);
-        void affichePlacesDisponibles(std::vector<int> typePlaces);
-        std::vector<Usager> saisieFacture(std::vector <Usager> Clients);
-        void afficherFacture();
-        void retirerClient();   // donc seulement rétablir le numéro dans la liste initiale
+        Usager saisieFacture(Usager Client);
+        std::vector<Usager> retirerClient(std::vector <Usager> Clients);
+        void afficherPlaces();
         
 
     private:
