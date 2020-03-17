@@ -22,6 +22,7 @@ class GestionPort{
         static std::vector<int> PlacesT1;
         static std::vector<int> PlacesT2;
         static std::vector<int> CorpsMort;
+        static int placeDefaut;
 };
 
 #endif
