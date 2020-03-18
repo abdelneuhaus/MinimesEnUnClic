@@ -1,3 +1,5 @@
 A FAIRE:
 
 	- Supprimer un voilier d'une place et remettre à -1
+
+	- Ecrire et lire dans un txt
