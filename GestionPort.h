@@ -2,7 +2,6 @@
 #define GESTIONPORT_H
 
 #include "Usager.h"
-#include "Port.h"
 #include <vector>
 
 class GestionPort{
@@ -15,6 +14,8 @@ class GestionPort{
         Usager saisieFacture(Usager Client);
         std::vector<Usager> retirerClient(std::vector <Usager> Clients);
         void afficherPlaces();
+        void saveData(std::ofstream &file)const;
+        void LoadData() const;        
         
 
     private:
@@ -22,7 +23,6 @@ class GestionPort{
         static std::vector<int> PlacesT1;
         static std::vector<int> PlacesT2;
         static std::vector<int> CorpsMort;
-        static int placeDefaut;
 };
 
 #endif

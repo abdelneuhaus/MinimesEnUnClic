@@ -28,7 +28,6 @@ int main(){
         }
         else if(choix == 1){
             Clients = GestionLaRochelle.enregistreClient(Clients);
-            // Clients = GestionLaRochelle.saisieFacture(Clients);
         }
         else if(choix == 2){
             GestionLaRochelle.afficheInfos(Clients);

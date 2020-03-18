@@ -50,3 +50,7 @@ int Voilier::getPlace(){
 void Voilier::setPlace(int nbr){
     m_place = nbr;
 }
+
+void Voilier::quittePort(){
+    m_place = -1;
+}
