@@ -14,7 +14,9 @@ class Usager{
         bool getFormule() const;
         Voilier getVoilier() const; 
         int getFacture();
-        void setFacture(int prix);       
+        void setFacture(int prix);  
+        void departClient();
+        bool getPresence();     
 
     private:
         std::string m_nom;
@@ -22,6 +24,7 @@ class Usager{
         bool m_formule;
         Voilier m_voilier;  
         int m_facture;
+        bool m_presence;
 };
 
 #endif

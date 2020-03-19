@@ -111,10 +111,13 @@ vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes){
         cout << "Recommencer" << "\n";
         cin >> choixFormule;
     }
-    if (choixFormule == "A" || choixFormule == "a"){
+    if ((choixFormule == "A" || choixFormule == "a") && voilier.getPlace() < 91){
         formule = true;
     }
     else if (choixFormule == "P" || choixFormule == "p"){
+        formule = false;
+    }
+    else if (voilier.getPlace() > 90){
         formule = false;
     }
     cout << "\n";
@@ -132,15 +135,29 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes){
     cout << "Indiquer le numéro de dossier auquel accéder" << "\n";
     int cle;
     cin >> cle;
-    cout << "\n";
-    cout << "Numéro de dossier : " << cle << "\n";
-    cout << "Nom : " << Abonnes[cle].getNom() << "\n";
-    cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
-    cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
-    cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
-    cout << "Place occupée par le bateau : " << Abonnes[cle].getVoilier().getPlace() << "\n";
-    cout << "Facture : " << Abonnes[cle].getFacture() << " euros" << "\n";
-    cout << "\n";
+
+    if(Abonnes[cle].getPresence() == true){
+        cout << "\n";
+        cout << "Numéro de dossier : " << cle << "\n";
+        cout << "Nom : " << Abonnes[cle].getNom() << "\n";
+        cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
+        cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
+        cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
+        cout << "Place occupée par le bateau : " << Abonnes[cle].getVoilier().getPlace() << "\n";
+        cout << "Facture : " << Abonnes[cle].getFacture() << " euros" << "\n";
+        cout << "\n";
+    }
+    else if (Abonnes[cle].getPresence() == false){
+        cout << "\n";
+        cout << "Numéro de dossier : " << cle << "\n";
+        cout << "Nom : " << Abonnes[cle].getNom() << "\n";
+        cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
+        cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
+        cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
+        cout << "Facture payée : " << Abonnes[cle].getFacture() << " euros" << "\n";
+        cout << "Ce client est parti" << "\n";
+        cout << "\n";
+    }
 }
 
 
@@ -240,33 +257,33 @@ vector <Usager> GestionPort::retirerClient(vector<Usager> Abonnes){
 
     cout << "Entrer le numéro de dossier du client qui quitte le port" << "\n";
     cin >> numeroDossier;
-    if(Abonnes[numeroDossier].getVoilier().getPlace() == -1){
+    if(Abonnes[numeroDossier].getPresence() == false){
         cout << "Ce client a déjà quitté le port" << "\n";
     }
     else if (Abonnes[numeroDossier].getVoilier().getPlace() < 91 && Abonnes[numeroDossier].getVoilier().getTypeVoilier() == "NH"){
         PlacesNH.push_back(Abonnes[numeroDossier].getVoilier().getPlace());
-        Abonnes[numeroDossier].getVoilier().quittePort();
+        Abonnes[numeroDossier].departClient();
         cout << "Somme réglée : " << Abonnes[numeroDossier].getFacture() << " euros" << "\n";
         cout << "Retrait du bateau. La place est désormais disponible" << "\n";
         return Abonnes;
     }
     else if (Abonnes[numeroDossier].getVoilier().getPlace() < 91 && Abonnes[numeroDossier].getVoilier().getTypeVoilier() == "T1"){
         PlacesT1.push_back(Abonnes[numeroDossier].getVoilier().getPlace());
-        Abonnes[numeroDossier].getVoilier().quittePort();
+        Abonnes[numeroDossier].departClient();
         cout << "Somme réglée : " << Abonnes[numeroDossier].getFacture() << " euros" << "\n";
         cout << "Retrait du bateau. La place est désormais disponible" << "\n";
         return Abonnes;
     }
     else if (Abonnes[numeroDossier].getVoilier().getPlace() < 91 && Abonnes[numeroDossier].getVoilier().getTypeVoilier() == "T2"){
         PlacesT2.push_back(Abonnes[numeroDossier].getVoilier().getPlace());
-        Abonnes[numeroDossier].getVoilier().quittePort();
+        Abonnes[numeroDossier].departClient();
         cout << "Somme réglée : " << Abonnes[numeroDossier].getFacture() << " euros" << "\n";
         cout << "Retrait du bateau. La place est désormais disponible" << "\n";
         return Abonnes;
     }
     else{
         CorpsMort.push_back(Abonnes[numeroDossier].getVoilier().getPlace());
-        Abonnes[numeroDossier].getVoilier().quittePort();
+        Abonnes[numeroDossier].departClient();
         cout << "Somme réglée : " << Abonnes[numeroDossier].getFacture() << " euros" << "\n";
         cout << "Retrait du bateau. La place est désormais disponible" << "\n";
         return Abonnes;
@@ -316,6 +333,7 @@ void GestionPort::afficherPlaces(){
 
 
 void GestionPort::saveData(ofstream &file) const{
+    
 
 }
 
