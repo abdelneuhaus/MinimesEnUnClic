@@ -1,5 +1,6 @@
 #include "Usager.h"
 #include <string>
+#include <fstream>
 using namespace std;
 
 
@@ -47,4 +48,17 @@ void Usager::departClient(){
 
 bool Usager::getPresence(){
     return m_presence;
+}
+
+void Usager::saveData(ofstream& file) const {
+    file << m_nom << endl;
+    file << m_prenom << endl;
+    file << m_presence << endl;
+    file << m_facture << endl;
+    file << m_formule << endl;
+    file << m_voilier.getCabine() << endl;
+    file << m_voilier.getLongueur() << endl;
+    file << m_voilier.getNomVoilier() << endl;
+    file << m_voilier.getTypeVoilier() << endl;
+    file << m_voilier.getUtiliseService() << endl;
 }

@@ -11,11 +11,13 @@ void afficheMenu(){
     cout << "2: Afficher les informations d'un client" << "\n";
     cout << "3: Saisie du départ d'un client" << "\n";
     cout << "4: Afficher les places disponibles selon le type de bateau" << "\n";
+    cout << "5: Sauvegarder les données" << "\n";
+    cout << "6: Charger les données enregistrées" << "\n";
 }
 
 int main(){
+    string file("./test.txt");
     vector<Usager> Clients;
-    vector<int> Places(100, 3);
     GestionPort GestionLaRochelle;
     
     while(true){
@@ -37,6 +39,12 @@ int main(){
         }
         else if(choix == 4){
             GestionLaRochelle.afficherPlaces();
+        }
+        else if(choix == 5){
+            GestionLaRochelle.saveData(Clients);
+        }
+        else if(choix == 6){
+            Clients = GestionLaRochelle.loadData();
         }
     }
     return 0;

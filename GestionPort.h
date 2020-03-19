@@ -14,8 +14,8 @@ class GestionPort{
         Usager saisieFacture(Usager Client);
         std::vector<Usager> retirerClient(std::vector <Usager> Clients);
         void afficherPlaces();
-        void saveData(std::ofstream &file)const;
-        void LoadData() const;        
+        void saveData(std::vector<Usager> Clients)const;
+        std::vector <Usager> loadData() const;        
         
 
     private:

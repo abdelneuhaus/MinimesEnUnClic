@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include "GestionPort.h"
 using namespace std;
 
@@ -332,12 +333,46 @@ void GestionPort::afficherPlaces(){
 }
 
 
-void GestionPort::saveData(ofstream &file) const{
-    
-
+void GestionPort::saveData(vector<Usager> Clients) const{
+    ofstream ClientsFile;
+    ClientsFile.open("test.txt");
+    if(ClientsFile.is_open()){
+        for (int i = 0; i < Clients.size(); i++){
+            Clients[i].saveData(ClientsFile);
+            ClientsFile << endl;
+        }
+    }
 }
 
+vector<Usager> GestionPort::loadData() const{
+    string nom, prenom, nomVoilier, typeVoilier;
+    bool formule, presence, cabine, service;
+    int place, longueur, facture;
+    vector<Usager> Clients;
 
-void GestionPort::LoadData() const{
+    ifstream ClientsFile("test.txt");
+    if (ClientsFile.is_open()){
+        getline(ClientsFile, nom);
+        getline(ClientsFile, prenom);
+        ClientsFile >> presence;
+        ClientsFile >> facture;
+        ClientsFile >> formule;
+        ClientsFile >> cabine;
+        ClientsFile >> longueur;
+        getline(ClientsFile, nomVoilier);
+        getline(ClientsFile, typeVoilier);
+        ClientsFile >> service;
+
+        Voilier voilier(nomVoilier, longueur, cabine, service);
+        voilier.setTypeVoilier(typeVoilier);
+        cout << voilier.getTypeVoilier();
+
+        Usager client(nom, prenom, voilier, formule);
+        client.setFacture(facture);
+        
+        Clients.push_back(client);
+    }
+    return Clients;
+
 
 }       

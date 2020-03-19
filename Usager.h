@@ -16,7 +16,8 @@ class Usager{
         int getFacture();
         void setFacture(int prix);  
         void departClient();
-        bool getPresence();     
+        bool getPresence();
+        void saveData(std::ofstream& file) const;     
 
     private:
         std::string m_nom;
