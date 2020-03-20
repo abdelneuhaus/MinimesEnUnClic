@@ -50,14 +50,14 @@ Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
             PlacesNH.erase(PlacesNH.begin());
             return voilier;
         }
-        else if (longueur > 10 and longueur < 25){
+        else if (longueur >= 10 and longueur < 25){
             Voilier voilier(nomVoilier, longueur, true, true);
             voilier.setTypeVoilier("T1");
             voilier.setPlace(PlacesT1[0]);
             PlacesT1.erase(PlacesT1.begin());
             return voilier;
         }
-        else if (longueur > 25){
+        else if (longueur >= 25){
             Voilier voilier(nomVoilier, longueur, true, true);
             voilier.setTypeVoilier("T2");
             voilier.setPlace(PlacesT2[0]);
@@ -73,7 +73,7 @@ Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
             CorpsMort.erase(CorpsMort.begin());
             return voilier;
         }
-        else if (longueur > 10 and longueur < 25){
+        else if (longueur > 10 && longueur < 25){
             Voilier voilier(nomVoilier, longueur, true, true);
             voilier.setTypeVoilier("T1");
             voilier.setPlace(CorpsMort[0]);
@@ -105,21 +105,23 @@ vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes){
     cin >> nom;
     cout << "Saisie du prénom" << "\n";
     cin >> prenom;
-    cout << "L'usager veut-il s'abonner (A) ou est t'il de passage (P) ?" << "\n";
-    cout << "Taper A ou P" << "\n";
-    cin >> choixFormule;
-    while(choixFormule != "A" && choixFormule != "a" && choixFormule != "P" && choixFormule != "p"){
-        cout << "Recommencer" << "\n";
+    if(voilier.getPlace() > 90){
+        formule = false;
+    }
+    else{
+        cout << "L'usager veut-il s'abonner (A) ou est t'il de passage (P) ?" << "\n";
+        cout << "Taper A ou P" << "\n";
         cin >> choixFormule;
-    }
-    if ((choixFormule == "A" || choixFormule == "a") && voilier.getPlace() < 91){
-        formule = true;
-    }
-    else if (choixFormule == "P" || choixFormule == "p"){
-        formule = false;
-    }
-    else if (voilier.getPlace() > 90){
-        formule = false;
+        while(choixFormule != "A" && choixFormule != "a" && choixFormule != "P" && choixFormule != "p"){
+            cout << "Recommencer" << "\n";
+            cin >> choixFormule;
+        }
+        if ((choixFormule == "A" || choixFormule == "a") && voilier.getPlace() < 91){
+            formule = true;
+        }
+        else if (choixFormule == "P" || choixFormule == "p"){
+            formule = false;
+        }
     }
     cout << "\n";
     Usager client(nom, prenom, voilier, formule);
@@ -173,7 +175,7 @@ Usager GestionPort::saisieFacture(Usager Client){
         cout << "Voici la somme qu'il a payé : " << Client.getFacture() << "\n";
     }
     else{
-        if ((Client.getVoilier().getTypeVoilier() == "T1" || Client.getVoilier().getTypeVoilier() == "T2") && Client.getVoilier().getPlace() < 91){
+        if ((Client.getVoilier().getTypeVoilier() == "T1" || Client.getVoilier().getTypeVoilier() == "T2") && Client.getVoilier().getPlace() < 91 && Client.getFormule() == __FLT_HAS_DENORM__){
             cout << "Le client compte-il utiliser au moins d'un des deux services (eau et eletricité) ?" << "\n";
             cin >> duo;
             if (duo == "NON" || duo == "non" || duo == "Non"){
@@ -346,7 +348,7 @@ void GestionPort::saveData(vector<Usager> Clients) const{
 }
 
 vector<Usager> GestionPort::loadData() const{
-    string nom, prenom, nomVoilier, typeVoilier;
+    string nom, prenom, nomVoilier, typeVoilier, buffer;
     bool formule, presence, cabine, service;
     int place, longueur, facture;
     vector<Usager> Clients;
@@ -371,13 +373,47 @@ vector<Usager> GestionPort::loadData() const{
             ClientsFile.ignore();
             ClientsFile >> place;
             ClientsFile.ignore();
-
+            getline(ClientsFile, buffer);
+            
             Voilier voilier(nomVoilier, longueur, cabine, service);
             voilier.setTypeVoilier(typeVoilier);
             voilier.setPlace(place);
             Usager client(nom, prenom, voilier, formule);
             client.setFacture(facture);
-            
+
+
+            if(place != -1){
+                if(place > 90){
+                    for(int i = 0; i < CorpsMort.size(); i++){
+                        if(CorpsMort[i] == place){
+                            CorpsMort.erase(CorpsMort.begin()+ i);
+                        }
+                    }
+                }
+                else{
+                    if(longueur < 10){
+                        for(int i = 0; i < PlacesNH.size(); i++){
+                            if(PlacesNH[i] == place){
+                                PlacesNH.erase(PlacesNH.begin()+ i);
+                            }
+                        }
+                    }
+                    else if(longueur >= 10 && longueur < 25){
+                        for(int i = 0; i < PlacesT1.size(); i++){
+                            if(PlacesT1[i] == place){
+                                PlacesT1.erase(PlacesT1.begin()+ i);
+                            }
+                        }
+                    }
+                    else if(longueur >= 25){
+                        for(int i = 0; i < PlacesT2.size(); i++){
+                            if(PlacesT2[i] == place){
+                                PlacesT2.erase(PlacesT2.begin()+ i);
+                            }
+                        }
+                    }
+                }
+            }
             Clients.push_back(client);
         }
         ClientsFile.close();
