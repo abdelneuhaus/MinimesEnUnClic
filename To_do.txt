@@ -1,5 +1,5 @@
 A FAIRE:
 
-	- Supprimer un voilier d'une place et remettre à -1
+	- Lire dans un txt
 
-	- Ecrire et lire dans un txt
+	- Supprimer les places dispos quand on charge des données
