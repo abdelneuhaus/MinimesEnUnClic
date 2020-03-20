@@ -17,7 +17,7 @@ class Voilier{
         bool getUtiliseService() const;
         std::string getTypeVoilier() const;
         void setTypeVoilier(std::string type);
-        int getPlace();
+        int getPlace() const;
         void setPlace(int nbr);
 
 

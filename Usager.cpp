@@ -61,4 +61,5 @@ void Usager::saveData(ofstream& file) const {
     file << m_voilier.getNomVoilier() << endl;
     file << m_voilier.getTypeVoilier() << endl;
     file << m_voilier.getUtiliseService() << endl;
+    file << m_voilier.getPlace() << endl;
 }

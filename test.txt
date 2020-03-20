@@ -1,11 +1,24 @@
 Brando
 Dio
 1
-650
+162
 1
 1
 12
 Time
 T1
 1
+31
+
+Kujo
+Jotaro
+1
+325
+1
+1
+12
+Force
+T1
+1
+31
 

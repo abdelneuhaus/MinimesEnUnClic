@@ -341,6 +341,7 @@ void GestionPort::saveData(vector<Usager> Clients) const{
             Clients[i].saveData(ClientsFile);
             ClientsFile << endl;
         }
+        ClientsFile.close();
     }
 }
 
@@ -352,27 +353,34 @@ vector<Usager> GestionPort::loadData() const{
 
     ifstream ClientsFile("test.txt");
     if (ClientsFile.is_open()){
-        getline(ClientsFile, nom);
-        getline(ClientsFile, prenom);
-        ClientsFile >> presence;
-        ClientsFile >> facture;
-        ClientsFile >> formule;
-        ClientsFile >> cabine;
-        ClientsFile >> longueur;
-        getline(ClientsFile, nomVoilier);
-        getline(ClientsFile, typeVoilier);
-        ClientsFile >> service;
+        while (getline(ClientsFile, nom)){
+            getline(ClientsFile, prenom);
+            ClientsFile >> presence;
+            ClientsFile.ignore();
+            ClientsFile >> facture;
+            ClientsFile.ignore();
+            ClientsFile >> formule;
+            ClientsFile.ignore();
+            ClientsFile >> cabine;
+            ClientsFile.ignore();
+            ClientsFile >> longueur;
+            ClientsFile.ignore();           
+            getline(ClientsFile, nomVoilier);
+            getline(ClientsFile, typeVoilier);
+            ClientsFile >> service;
+            ClientsFile.ignore();
+            ClientsFile >> place;
+            ClientsFile.ignore();
 
-        Voilier voilier(nomVoilier, longueur, cabine, service);
-        voilier.setTypeVoilier(typeVoilier);
-        cout << voilier.getTypeVoilier();
-
-        Usager client(nom, prenom, voilier, formule);
-        client.setFacture(facture);
-        
-        Clients.push_back(client);
+            Voilier voilier(nomVoilier, longueur, cabine, service);
+            voilier.setTypeVoilier(typeVoilier);
+            voilier.setPlace(place);
+            Usager client(nom, prenom, voilier, formule);
+            client.setFacture(facture);
+            
+            Clients.push_back(client);
+        }
+        ClientsFile.close();
     }
     return Clients;
-
-
 }       
