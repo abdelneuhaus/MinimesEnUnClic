@@ -1,5 +1,3 @@
 A FAIRE:
 
-	- Lire dans un txt
-
-	- Supprimer les places dispos quand on charge des données
+	- Gestion d'erreurs
