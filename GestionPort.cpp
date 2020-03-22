@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <exception>
 #include "GestionPort.h"
 using namespace std;
 
@@ -38,19 +39,23 @@ Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
     cin >> nomVoilier;
     cout << "Quel est la longueur du voilier ?" << "\n";
     cin >> longueur;
+    while(longueur < 1){
+        cout << "Longueur invalide. Resaisir une longueur valide" << "\n";
+        cin >> longueur;
+    }
     cout << "Voulez-vous une place normale ou pas (corps mort) ?" << "\n";
     cin >> typePlace;
     
     // Check les places disponible à donner au bateau
     if (typePlace == "oui" || typePlace == "OUI" || typePlace == "Oui"){
-        if (longueur < 10){
+        if (longueur < 9){
             Voilier voilier(nomVoilier, longueur, false, false);
             voilier.setTypeVoilier("NH");
             voilier.setPlace(PlacesNH[0]);
             PlacesNH.erase(PlacesNH.begin());
             return voilier;
         }
-        else if (longueur >= 10 and longueur < 25){
+        else if (longueur >= 10 and longueur < 24){
             Voilier voilier(nomVoilier, longueur, true, true);
             voilier.setTypeVoilier("T1");
             voilier.setPlace(PlacesT1[0]);
@@ -223,6 +228,10 @@ Usager GestionPort::saisieFacture(Usager Client){
             cout << Client.getNom() << " " << Client.getPrenom() << " est un(e) client(e) de passage" << "\n";
             cout << "Combien de jours restera-il ?" << "\n";
             cin >> duree;
+            while(duree < 1){
+                cout << "Duree invalide. Resaisir une durée valide" << "\n";
+                cin >> duree;
+            }
             if (Client.getVoilier().getTypeVoilier() == "NH"){
                 Client.setFacture(20 * duree);
             }
@@ -238,6 +247,10 @@ Usager GestionPort::saisieFacture(Usager Client){
             cout << Client.getNom() << " " << Client.getPrenom() << " est un(e) client(e) de passage qui utilise un corps mort" << "\n";
             cout << "Combien de jours restera-il ?" << "\n";
             cin >> duree;
+            while(duree < 1){
+                cout << "Duree invalide. Resaisir une durée valide" << "\n";
+                cin >> duree;
+            }  
             if (Client.getVoilier().getTypeVoilier() == "NH"){
                 Client.setFacture(20 * duree * 0.5);
             }
@@ -260,6 +273,10 @@ vector <Usager> GestionPort::retirerClient(vector<Usager> Abonnes){
 
     cout << "Entrer le numéro de dossier du client qui quitte le port" << "\n";
     cin >> numeroDossier;
+    while(numeroDossier < 0){
+        cout << "Numéro invalide. Resaisir un numéro valide (le premier étant 0)" << "\n";
+        cin >> numeroDossier;
+    }
     if(Abonnes[numeroDossier].getPresence() == false){
         cout << "Ce client a déjà quitté le port" << "\n";
     }

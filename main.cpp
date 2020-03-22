@@ -19,6 +19,7 @@ int main(){
     string file("./test.txt");
     vector<Usager> Clients;
     GestionPort GestionLaRochelle;
+    Clients = GestionLaRochelle.loadData();
     
     while(true){
         afficheMenu();
@@ -43,8 +44,8 @@ int main(){
         else if(choix == 5){
             GestionLaRochelle.saveData(Clients);
         }
-        else if(choix == 6){
-            Clients = GestionLaRochelle.loadData();
+        else{
+            cout << "Choix non disponible. Recommencer" << "\n";
         }
     }
     return 0;
