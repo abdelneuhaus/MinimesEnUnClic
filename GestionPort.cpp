@@ -1,8 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include <exception>
 #include "GestionPort.h"
 using namespace std;
+
 
 vector<int> GestionPort::PlacesNH;
 vector<int> GestionPort::PlacesT1;
@@ -29,7 +29,7 @@ GestionPort::GestionPort(){
 }
 
 
-Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
+Voilier GestionPort::choixBateau(){
     string nomVoilier;
     double longueur;
     string typePlace;
@@ -49,44 +49,44 @@ Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
     // Check les places disponible à donner au bateau
     if (typePlace == "oui" || typePlace == "OUI" || typePlace == "Oui"){
         if (longueur < 9){
-            Voilier voilier(nomVoilier, longueur, false, false);
+            VoilierNH voilier(nomVoilier, longueur);
             voilier.setTypeVoilier("NH");
             voilier.setPlace(PlacesNH[0]);
             PlacesNH.erase(PlacesNH.begin());
             return voilier;
         }
         else if (longueur >= 10 and longueur < 24){
-            Voilier voilier(nomVoilier, longueur, true, true);
-            voilier.setTypeVoilier("T1");
-            voilier.setPlace(PlacesT1[0]);
+            VoilierT1 voilier1(nomVoilier, longueur);
+            voilier1.setTypeVoilier("T1");
+            voilier1.setPlace(PlacesT1[0]);
             PlacesT1.erase(PlacesT1.begin());
-            return voilier;
+            return voilier1;
         }
         else if (longueur >= 25){
-            Voilier voilier(nomVoilier, longueur, true, true);
-            voilier.setTypeVoilier("T2");
-            voilier.setPlace(PlacesT2[0]);
+            VoilierT2 voilier2(nomVoilier, longueur);
+            voilier2.setTypeVoilier("T2");
+            voilier2.setPlace(PlacesT2[0]);
             PlacesT2.erase(PlacesT2.begin());
-            return voilier;
+            return voilier2;
         }
     }
     else{
         if (longueur < 10){
-            Voilier voilier(nomVoilier, longueur, false, false);
+            VoilierNH voilier(nomVoilier, longueur);
             voilier.setTypeVoilier("NH");
             voilier.setPlace(CorpsMort[0]);
             CorpsMort.erase(CorpsMort.begin());
             return voilier;
         }
         else if (longueur > 10 && longueur < 25){
-            Voilier voilier(nomVoilier, longueur, true, true);
+            VoilierT1 voilier(nomVoilier, longueur);
             voilier.setTypeVoilier("T1");
             voilier.setPlace(CorpsMort[0]);
             CorpsMort.erase(CorpsMort.begin());
             return voilier;
         }
         else if (longueur > 25){
-            Voilier voilier(nomVoilier, longueur, true, true);
+            VoilierT2 voilier(nomVoilier, longueur);
             voilier.setTypeVoilier("T2");
             voilier.setPlace(CorpsMort[0]);
             CorpsMort.erase(CorpsMort.begin());
@@ -97,7 +97,7 @@ Voilier GestionPort::choixBateau(vector<Usager> Abonnes){
 
 
 vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes){
-    Voilier voilier = choixBateau(Abonnes);
+    Voilier voilier = choixBateau();
     string nom;
     string prenom;
     string choixFormule;
@@ -150,7 +150,6 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes){
         cout << "Nom : " << Abonnes[cle].getNom() << "\n";
         cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
         cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
-        cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
         cout << "Place occupée par le bateau : " << Abonnes[cle].getVoilier().getPlace() << "\n";
         cout << "Facture : " << Abonnes[cle].getFacture() << " euros" << "\n";
         cout << "\n";
@@ -160,8 +159,7 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes){
         cout << "Numéro de dossier : " << cle << "\n";
         cout << "Nom : " << Abonnes[cle].getNom() << "\n";
         cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
-        cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
-        cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
+        cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << endl;
         cout << "Facture payée : " << Abonnes[cle].getFacture() << " euros" << "\n";
         cout << "Ce client est parti" << "\n";
         cout << "\n";
@@ -391,15 +389,15 @@ vector<Usager> GestionPort::loadData() const{
             ClientsFile >> place;
             ClientsFile.ignore();
             getline(ClientsFile, buffer);
-            
-            Voilier voilier(nomVoilier, longueur, cabine, service);
-            voilier.setTypeVoilier(typeVoilier);
-            voilier.setPlace(place);
-            Usager client(nom, prenom, voilier, formule);
-            client.setFacture(facture);
 
-
-            if(place != -1){
+            if(typeVoilier == "NH"){
+                VoilierNH voilier(nomVoilier, longueur);
+                voilier.setTypeVoilier(typeVoilier);
+                voilier.setPlace(place);
+                Usager client(nom, prenom, voilier, formule);
+                client.setFacture(facture);
+                Clients.push_back(client);
+                if(place != -1){
                 if(place > 90){
                     for(int i = 0; i < CorpsMort.size(); i++){
                         if(CorpsMort[i] == place){
@@ -431,8 +429,91 @@ vector<Usager> GestionPort::loadData() const{
                     }
                 }
             }
-            Clients.push_back(client);
+
         }
+
+            else if(typeVoilier == "T1"){
+                VoilierT1 voilier(nomVoilier, longueur);
+                voilier.setTypeVoilier(typeVoilier);
+                voilier.setPlace(place);
+                Usager client(nom, prenom, voilier, formule);
+                client.setFacture(facture);
+                Clients.push_back(client);
+                if(place != -1){
+                if(place > 90){
+                    for(int i = 0; i < CorpsMort.size(); i++){
+                        if(CorpsMort[i] == place){
+                            CorpsMort.erase(CorpsMort.begin()+ i);
+                        }
+                    }
+                }
+                else{
+                    if(longueur < 10){
+                        for(int i = 0; i < PlacesNH.size(); i++){
+                            if(PlacesNH[i] == place){
+                                PlacesNH.erase(PlacesNH.begin()+ i);
+                            }
+                        }
+                    }
+                    else if(longueur >= 10 && longueur < 25){
+                        for(int i = 0; i < PlacesT1.size(); i++){
+                            if(PlacesT1[i] == place){
+                                PlacesT1.erase(PlacesT1.begin()+ i);
+                            }
+                        }
+                    }
+                    else if(longueur >= 25){
+                        for(int i = 0; i < PlacesT2.size(); i++){
+                            if(PlacesT2[i] == place){
+                                PlacesT2.erase(PlacesT2.begin()+ i);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+            else{
+                VoilierT2 voilier(nomVoilier, longueur);
+                voilier.setTypeVoilier(typeVoilier);
+                voilier.setPlace(place);
+                Usager client(nom, prenom, voilier, formule);
+                client.setFacture(facture);
+                Clients.push_back(client);
+                if(place != -1){
+                if(place > 90){
+                    for(int i = 0; i < CorpsMort.size(); i++){
+                        if(CorpsMort[i] == place){
+                            CorpsMort.erase(CorpsMort.begin()+ i);
+                        }
+                    }
+                }
+                else{
+                    if(longueur < 10){
+                        for(int i = 0; i < PlacesNH.size(); i++){
+                            if(PlacesNH[i] == place){
+                                PlacesNH.erase(PlacesNH.begin()+ i);
+                            }
+                        }
+                    }
+                    else if(longueur >= 10 && longueur < 25){
+                        for(int i = 0; i < PlacesT1.size(); i++){
+                            if(PlacesT1[i] == place){
+                                PlacesT1.erase(PlacesT1.begin()+ i);
+                            }
+                        }
+                    }
+                    else if(longueur >= 25){
+                        for(int i = 0; i < PlacesT2.size(); i++){
+                            if(PlacesT2[i] == place){
+                                PlacesT2.erase(PlacesT2.begin()+ i);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
         ClientsFile.close();
     }
     return Clients;

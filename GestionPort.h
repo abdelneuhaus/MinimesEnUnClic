@@ -2,6 +2,9 @@
 #define GESTIONPORT_H
 
 #include "Usager.h"
+#include "VoilierNH.h"
+#include "VoilierT1.h"
+#include "VoilierT2.h"
 #include <vector>
 
 class GestionPort{
@@ -9,13 +12,13 @@ class GestionPort{
     public:
         GestionPort();
         std::vector<Usager> enregistreClient(std::vector<Usager> Clients);
-        Voilier choixBateau(std::vector<Usager> Clients);
+        Voilier choixBateau();
         void afficheInfos(std::vector<Usager> Clients);
         Usager saisieFacture(Usager Client);
         std::vector<Usager> retirerClient(std::vector <Usager> Clients);
         void afficherPlaces();
         void saveData(std::vector<Usager> Clients)const;
-        std::vector <Usager> loadData() const;        
+        std::vector<Usager> loadData() const;        
         
 
     private:

@@ -12,7 +12,6 @@ void afficheMenu(){
     cout << "3: Saisie du départ d'un client" << "\n";
     cout << "4: Afficher les places disponibles selon le type de bateau" << "\n";
     cout << "5: Sauvegarder les données" << "\n";
-    cout << "6: Charger les données enregistrées" << "\n";
 }
 
 int main(){

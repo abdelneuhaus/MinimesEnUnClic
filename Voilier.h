@@ -7,8 +7,8 @@ class Voilier{
 
     public:
         Voilier();
-        Voilier(std::string nomVoilier, double longueur, bool cabine, bool utiliseService);
-        ~Voilier();
+        Voilier(std::string nomVoilier, double longueur);
+        virtual ~Voilier();
         Voilier(const Voilier &VoilierCopie, std::string nomVoilier);
 
         std::string getNomVoilier() const;
@@ -19,9 +19,10 @@ class Voilier{
         void setTypeVoilier(std::string type);
         int getPlace() const;
         void setPlace(int nbr);
+        virtual std::string afficheType() const;
 
 
-    private:
+    protected:
         std::string m_nomVoilier;
         double m_longueur;
         bool m_cabine;

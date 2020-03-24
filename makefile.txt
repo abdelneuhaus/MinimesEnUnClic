@@ -1,7 +1,7 @@
-Prog: main.o GestionPort.o Voilier.o Usager.o
-	g++ -o prog main.o GestionPort.o Voilier.o Usager.o
+Prog: main.o GestionPort.o Voilier.o Usager.o VoilierNH.o VoilierT1.o VoilierT2.o
+	g++ -o prog main.o GestionPort.o Voilier.o Usager.o VoilierNH.o VoilierT1.o VoilierT2.o
 
-GestionPort.o: GestionPort.cpp GestionPort.h
+GestionPort.o: GestionPort.cpp GestionPort.h Usager.o VoilierNH.o VoilierT1.o VoilierT2.o
 	g++ -c GestionPort.cpp
 
 Voilier.o: Voilier.cpp Voilier.h
@@ -9,3 +9,12 @@ Voilier.o: Voilier.cpp Voilier.h
 
 Usager.o: Usager.cpp Usager.h Voilier.h
 	g++ -c Usager.cpp
+
+VoilierNH.o: VoilierNH.cpp VoilierNH.h Voilier.h
+	g++ -c VoilierNH.cpp
+
+VoilierT1.o: VoilierT1.cpp VoilierT1.h Voilier.h
+	g++ -c VoilierT1.cpp
+
+VoilierT2.o: VoilierT2.cpp VoilierT2.h Voilier.h
+	g++ -c VoilierT2.cpp
