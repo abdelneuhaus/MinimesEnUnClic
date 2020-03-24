@@ -2,6 +2,7 @@
 #define VOILIER_H
 
 #include <string>
+#include <fstream>
 
 class Voilier{
 
@@ -20,6 +21,7 @@ class Voilier{
         int getPlace() const;
         void setPlace(int nbr);
         virtual std::string afficheType() const;
+        void saveData(std::ofstream& file) const;
 
 
     protected:

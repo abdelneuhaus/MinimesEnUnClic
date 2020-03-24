@@ -5,12 +5,12 @@
 using namespace std;
 
 
-Usager::Usager(): m_nom("Vide"), m_prenom("Vide"), m_voilier(Voilier()), m_formule(1){
+Usager::Usager(): m_nom("Vide"), m_prenom("Vide"), m_voilier(0), m_formule(1){
     m_facture = 0;
     m_presence = false;
 }
 
-Usager::Usager(string nom, string prenom, Voilier voilier, bool formule): 
+Usager::Usager(string nom, string prenom, Voilier *voilier, bool formule): 
     m_nom(nom), m_prenom(prenom), m_voilier(voilier), m_formule(formule){
         m_facture = 0;
         m_presence = true;
@@ -38,7 +38,7 @@ bool Usager::getFormule() const{
 }
 
 Voilier Usager::getVoilier() const{
-    return m_voilier;
+    return *m_voilier;
 }
 
 int Usager::getFacture(){
@@ -47,6 +47,10 @@ int Usager::getFacture(){
 
 void Usager::setFacture(int prix){
     m_facture = prix;
+}
+
+void Usager::setPresence(bool presence){
+    m_presence = presence;
 }
 
 void Usager::departClient(){
@@ -63,10 +67,4 @@ void Usager::saveData(ofstream& file) const {
     file << m_presence << endl;
     file << m_facture << endl;
     file << m_formule << endl;
-    file << m_voilier.getCabine() << endl;
-    file << m_voilier.getLongueur() << endl;
-    file << m_voilier.getNomVoilier() << endl;
-    file << m_voilier.getTypeVoilier() << endl;
-    file << m_voilier.getUtiliseService() << endl;
-    file << m_voilier.getPlace() << endl;
 }

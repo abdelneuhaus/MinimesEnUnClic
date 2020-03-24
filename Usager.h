@@ -7,7 +7,7 @@ class Usager{
 
     public:
         Usager();
-        Usager(std::string nom, std::string prenom, Voilier voilier, bool formule);
+        Usager(std::string nom, std::string prenom, Voilier *voilier, bool formule);
         Usager(Usager const& client);
         ~Usager();
         std::string getNom() const;
@@ -18,13 +18,14 @@ class Usager{
         void setFacture(int prix);  
         void departClient();
         bool getPresence();
+        void setPresence(bool presence);
         void saveData(std::ofstream& file) const;     
 
     private:
         std::string m_nom;
         std::string m_prenom;
         bool m_formule;
-        Voilier m_voilier;  
+        Voilier *m_voilier;  
         int m_facture;
         bool m_presence;
 };

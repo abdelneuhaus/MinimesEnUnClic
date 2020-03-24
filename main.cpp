@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "GestionPort.h"
 using namespace std;
 
@@ -15,10 +16,12 @@ void afficheMenu(){
 }
 
 int main(){
-    string file("./test.txt");
-    vector<Usager> Clients;
     GestionPort GestionLaRochelle;
-    Clients = GestionLaRochelle.loadData();
+    vector<Usager> Clients;
+    vector<Voilier*> Voiliers;
+
+    Voiliers = GestionLaRochelle.loadDataVoilier();
+    Clients = GestionLaRochelle.loadDataUsager(Voiliers);
     
     while(true){
         afficheMenu();
@@ -29,19 +32,22 @@ int main(){
             return(0);
         }
         else if(choix == 1){
-            Clients = GestionLaRochelle.enregistreClient(Clients);
+            Voiliers = GestionLaRochelle.choixBateau(Voiliers);
+            Clients = GestionLaRochelle.enregistreClient(Clients, Voiliers);
         }
         else if(choix == 2){
-            GestionLaRochelle.afficheInfos(Clients);
+            GestionLaRochelle.afficheInfos(Clients, Voiliers);
         }
         else if(choix == 3){
+            Voiliers = GestionLaRochelle.retirerBateau(Voiliers);
             Clients = GestionLaRochelle.retirerClient(Clients);
         }
         else if(choix == 4){
             GestionLaRochelle.afficherPlaces();
         }
         else if(choix == 5){
-            GestionLaRochelle.saveData(Clients);
+            GestionLaRochelle.saveDataClients(Clients);
+            GestionLaRochelle.saveDataVoiliers(Voiliers);
         }
         else{
             cout << "Choix non disponible. Recommencer" << "\n";

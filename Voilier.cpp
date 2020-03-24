@@ -50,3 +50,12 @@ void Voilier::setPlace(int nbr){
 string Voilier::afficheType() const{
     return "None";
 }
+
+void Voilier::saveData(ofstream& file) const {
+    file << m_nomVoilier << endl;
+    file << m_typeVoilier << endl;
+    file << m_cabine << endl;
+    file << m_longueur << endl;
+    file << m_utiliseService << endl;
+    file << m_place << endl;
+}

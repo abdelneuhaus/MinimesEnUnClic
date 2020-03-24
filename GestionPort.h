@@ -2,23 +2,23 @@
 #define GESTIONPORT_H
 
 #include "Usager.h"
-#include "VoilierNH.h"
-#include "VoilierT1.h"
-#include "VoilierT2.h"
 #include <vector>
 
 class GestionPort{
 
     public:
         GestionPort();
-        std::vector<Usager> enregistreClient(std::vector<Usager> Clients);
-        Voilier choixBateau();
-        void afficheInfos(std::vector<Usager> Clients);
+        std::vector<Usager> enregistreClient(std::vector<Usager> Clients, std::vector<Voilier*> Voiliers);
+        std::vector<Voilier*> choixBateau(std::vector<Voilier*> listeVoiliers);
+        void afficheInfos(std::vector<Usager> Clients, std::vector<Voilier*> Voiliers);
         Usager saisieFacture(Usager Client);
-        std::vector<Usager> retirerClient(std::vector <Usager> Clients);
+        std::vector<Voilier*> retirerBateau(std::vector <Voilier*> Voiliers);
+        std::vector<Usager> retirerClient(std::vector<Usager> Clients);
         void afficherPlaces();
-        void saveData(std::vector<Usager> Clients)const;
-        std::vector<Usager> loadData() const;        
+        void saveDataClients(std::vector<Usager> Clients) const;
+        void saveDataVoiliers(std::vector<Voilier*> Voiliers) const;
+        std::vector<Voilier*> loadDataVoilier() const;
+        std::vector<Usager> loadDataUsager(std::vector<Voilier*>) const;        
         
 
     private:
