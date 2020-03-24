@@ -33,8 +33,6 @@ Voilier GestionPort::choixBateau(){
     string nomVoilier;
     double longueur;
     string typePlace;
-    cout << "\n";
-    cout << "Saisie du voilier" << "\n";
     cout << "Quel est le nom du voilier ?" << "\n";
     cin >> nomVoilier;
     cout << "Quel est la longueur du voilier ?" << "\n";
@@ -98,12 +96,13 @@ Voilier GestionPort::choixBateau(){
 
 vector<Usager> GestionPort::enregistreClient(vector<Usager> Abonnes){
     Voilier voilier = choixBateau();
+    
+    // Création du client dans la database
     string nom;
     string prenom;
     string choixFormule;
     bool formule;
 
-    // Création du client dans la database
     cout << "\n";
     cout << "Création du client" << "\n";
     cout << "Saisie du nom de famille" << "\n";
@@ -149,7 +148,8 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes){
         cout << "Numéro de dossier : " << cle << "\n";
         cout << "Nom : " << Abonnes[cle].getNom() << "\n";
         cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
-        cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << "\n";
+        cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << endl;
+        cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << endl;
         cout << "Place occupée par le bateau : " << Abonnes[cle].getVoilier().getPlace() << "\n";
         cout << "Facture : " << Abonnes[cle].getFacture() << " euros" << "\n";
         cout << "\n";
@@ -160,6 +160,7 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes){
         cout << "Nom : " << Abonnes[cle].getNom() << "\n";
         cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
         cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << endl;
+        cout << "Type de bateau : " << Abonnes[cle].getVoilier().getTypeVoilier() << "\n";
         cout << "Facture payée : " << Abonnes[cle].getFacture() << " euros" << "\n";
         cout << "Ce client est parti" << "\n";
         cout << "\n";
@@ -269,6 +270,7 @@ vector <Usager> GestionPort::retirerClient(vector<Usager> Abonnes){
     string choix;
     int numeroDossier;
 
+    cout << "\n";
     cout << "Entrer le numéro de dossier du client qui quitte le port" << "\n";
     cin >> numeroDossier;
     while(numeroDossier < 0){
@@ -397,40 +399,7 @@ vector<Usager> GestionPort::loadData() const{
                 Usager client(nom, prenom, voilier, formule);
                 client.setFacture(facture);
                 Clients.push_back(client);
-                if(place != -1){
-                if(place > 90){
-                    for(int i = 0; i < CorpsMort.size(); i++){
-                        if(CorpsMort[i] == place){
-                            CorpsMort.erase(CorpsMort.begin()+ i);
-                        }
-                    }
-                }
-                else{
-                    if(longueur < 10){
-                        for(int i = 0; i < PlacesNH.size(); i++){
-                            if(PlacesNH[i] == place){
-                                PlacesNH.erase(PlacesNH.begin()+ i);
-                            }
-                        }
-                    }
-                    else if(longueur >= 10 && longueur < 25){
-                        for(int i = 0; i < PlacesT1.size(); i++){
-                            if(PlacesT1[i] == place){
-                                PlacesT1.erase(PlacesT1.begin()+ i);
-                            }
-                        }
-                    }
-                    else if(longueur >= 25){
-                        for(int i = 0; i < PlacesT2.size(); i++){
-                            if(PlacesT2[i] == place){
-                                PlacesT2.erase(PlacesT2.begin()+ i);
-                            }
-                        }
-                    }
-                }
             }
-
-        }
 
             else if(typeVoilier == "T1"){
                 VoilierT1 voilier(nomVoilier, longueur);
@@ -439,39 +408,7 @@ vector<Usager> GestionPort::loadData() const{
                 Usager client(nom, prenom, voilier, formule);
                 client.setFacture(facture);
                 Clients.push_back(client);
-                if(place != -1){
-                if(place > 90){
-                    for(int i = 0; i < CorpsMort.size(); i++){
-                        if(CorpsMort[i] == place){
-                            CorpsMort.erase(CorpsMort.begin()+ i);
-                        }
-                    }
-                }
-                else{
-                    if(longueur < 10){
-                        for(int i = 0; i < PlacesNH.size(); i++){
-                            if(PlacesNH[i] == place){
-                                PlacesNH.erase(PlacesNH.begin()+ i);
-                            }
-                        }
-                    }
-                    else if(longueur >= 10 && longueur < 25){
-                        for(int i = 0; i < PlacesT1.size(); i++){
-                            if(PlacesT1[i] == place){
-                                PlacesT1.erase(PlacesT1.begin()+ i);
-                            }
-                        }
-                    }
-                    else if(longueur >= 25){
-                        for(int i = 0; i < PlacesT2.size(); i++){
-                            if(PlacesT2[i] == place){
-                                PlacesT2.erase(PlacesT2.begin()+ i);
-                            }
-                        }
-                    }
-                }
             }
-        }
 
             else{
                 VoilierT2 voilier(nomVoilier, longueur);
@@ -480,7 +417,9 @@ vector<Usager> GestionPort::loadData() const{
                 Usager client(nom, prenom, voilier, formule);
                 client.setFacture(facture);
                 Clients.push_back(client);
-                if(place != -1){
+            }
+
+            if(place != -1){
                 if(place > 90){
                     for(int i = 0; i < CorpsMort.size(); i++){
                         if(CorpsMort[i] == place){
@@ -513,7 +452,6 @@ vector<Usager> GestionPort::loadData() const{
                 }
             }
         }
-    }
         ClientsFile.close();
     }
     return Clients;

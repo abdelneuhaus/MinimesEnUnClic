@@ -8,6 +8,7 @@ class VoilierNH : public Voilier{
     public:
         VoilierNH(std::string nomVoilier, double longueur);
         virtual ~VoilierNH();
+        virtual std::string afficheType() const;
 };
 
 #endif
