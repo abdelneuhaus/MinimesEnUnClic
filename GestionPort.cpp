@@ -170,7 +170,7 @@ void GestionPort::afficheInfos(vector<Usager> Abonnes, vector<Voilier*> Voiliers
         cout << "Nom : " << Abonnes[cle].getNom() << "\n";
         cout << "Prenom : " << Abonnes[cle].getPrenom() << "\n";
         cout << "Nom du bateau : " << Abonnes[cle].getVoilier().getNomVoilier() << endl;
-        cout << "Type de bateau : " << Voiliers[cle]->afficheType() << "\n";
+        cout << "Type de bateau : " << Voiliers[cle]->afficheType() << endl;
         cout << "Facture payée : " << Abonnes[cle].getFacture() << " euros" << "\n";
         cout << "Ce client est parti" << "\n";
         cout << "\n";
@@ -380,6 +380,7 @@ void GestionPort::saveDataClients(vector<Usager> Clients) const{
     }
 }
 
+
 void GestionPort::saveDataVoiliers(vector<Voilier*> Voiliers) const{
     ofstream VoiliersFile;
     VoiliersFile.open("voiliers.txt");
@@ -391,7 +392,6 @@ void GestionPort::saveDataVoiliers(vector<Voilier*> Voiliers) const{
         VoiliersFile.close();
     }
 }
-
 
 
 vector<Voilier*> GestionPort::loadDataVoilier() const{

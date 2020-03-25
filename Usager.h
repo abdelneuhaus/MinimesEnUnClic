@@ -8,7 +8,6 @@ class Usager{
     public:
         Usager();
         Usager(std::string nom, std::string prenom, Voilier *voilier, bool formule);
-        Usager(Usager const& client);
         ~Usager();
         std::string getNom() const;
         std::string getPrenom() const;

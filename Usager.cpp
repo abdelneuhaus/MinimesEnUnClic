@@ -18,13 +18,6 @@ Usager::Usager(string nom, string prenom, Voilier *voilier, bool formule):
 
 Usager::~Usager(){}
 
-Usager::Usager(Usager const& client) : 
-    m_nom(client.m_nom), m_prenom(client.m_prenom), m_voilier(client.m_voilier), m_formule(client.m_formule){
-        m_facture = client.m_facture;
-        m_presence = client.m_presence;
-    }
-
-
 string Usager::getNom() const{
     return m_nom;
 }

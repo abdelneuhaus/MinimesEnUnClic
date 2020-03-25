@@ -18,7 +18,7 @@ class GestionPort{
         void saveDataClients(std::vector<Usager> Clients) const;
         void saveDataVoiliers(std::vector<Voilier*> Voiliers) const;
         std::vector<Voilier*> loadDataVoilier() const;
-        std::vector<Usager> loadDataUsager(std::vector<Voilier*>) const;        
+        std::vector<Usager> loadDataUsager(std::vector<Voilier*>) const;
         
 
     private:
